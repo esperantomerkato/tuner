@@ -1,0 +1,9 @@
+freezegun
+mock
+requests
+nose
+tornado
+matplotlib
+cryptography
+python-binance
+websockets
