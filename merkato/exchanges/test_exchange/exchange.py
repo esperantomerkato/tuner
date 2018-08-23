@@ -153,7 +153,7 @@ class TestExchange(ExchangeBase):
             self.debug(3, "get_my_trade_history", self.order_history, self.user_id)
             raise
 
-        print("Filtered History:", filtered_history)
+        print("Last 5 in Filtered History:", filtered_history[-5:])
         filtered_history.reverse()
         return filtered_history 
 
