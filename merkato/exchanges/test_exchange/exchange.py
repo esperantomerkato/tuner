@@ -43,7 +43,7 @@ class TestExchange(ExchangeBase):
 
 
     def load_history(self):
-        with open("price_data.txt") as infile:
+        with open("sixtyfour") as infile:
             for line in infile:
                 obj = json.loads(line)
                 self.history.append(obj)

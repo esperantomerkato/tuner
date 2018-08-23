@@ -359,8 +359,8 @@ class Graph(tk.Frame):
         self.base_vol.set(str(float(data['base_volume'])))
         self.quote_vol.set(str(float(data['quote_volume'])))
         unmade_orders = get_unmade_volume(data['price'][1], data['starting_price'], data['starting_base'], data['starting_quote'], data['spread'], data['step'])
-        base_vol_profit = str((float(data['base_volume'])) * data['spread'])
-        quote_vol_profit = str((float(data['quote_volume'])) * data['spread'] )
+        base_vol_profit = str((float(data['base_volume'])) * (data['spread'] - .002))
+        quote_vol_profit = str((float(data['quote_volume'])) * (data['spread'] -.002))
         self.base_vol_profit.set(str(float(base_vol_profit)))
         self.quote_vol_profit.set(str(float(quote_vol_profit)))
 
