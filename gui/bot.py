@@ -157,7 +157,7 @@ class Bot(ttk.Frame):
                 self.graph.refresh(data=context, active=self.is_active)
             
             try:
-                self.title_var.set(str(self.name) + "   " + str(self.graph.performance.get()))
+                self.title_var.set(str(self.name))
                 
             except:
                 self.title_var.set(str(self.name) + "   err")

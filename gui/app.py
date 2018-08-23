@@ -133,14 +133,7 @@ class App:
                 else:
                     bot.update(initial_update=True)
                 try:
-                    if bot.graph.performance.get() == "inf":
-                        button.config(fg="green")
-                    elif float(bot.graph.performance.get()) > 0:
-                        button.config(fg="green")
-                    elif float(bot.graph.performance.get()) < 0:
-                        button.config(fg="red")
-                    else:
-                        button.config(fg="black")
+                    button.config(fg="black")
                 except Exception as e:
                     print(str(e))
                     button.config(fg="orange")
