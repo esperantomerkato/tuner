@@ -254,6 +254,18 @@ def start_merkatos(password=None):
             merkato.update()
         time.sleep(6)
 
+
+def start_tuner(start_base_amount, start_quote_amount, step, spread):
+    test_merkato = # Create a test merkato here using the passed in params and .0157 as a start price
+    config = generate_complete_merkato_configs(test_merkato)
+
+    tuner = Merkato(**config)
+
+    while True:
+        stuff = tuner.update()
+        time.sleep(1)
+
+
 def create_new_merkato():
     password = getpass.getpass()
     exchange_name = get_exchange()
