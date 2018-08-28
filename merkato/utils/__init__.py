@@ -85,6 +85,31 @@ def get_reserve_balance(type):
     selection = float(input("Selection: "))
     return selection
 
+
+def get_tuner_params_step():
+    print('MUST BE A NUMBER')
+    step = float(input("Step: "))
+    return step
+
+
+def get_tuner_params_spread():
+    print('MUST BE A NUMBER')
+    spread = float(input("spread: "))
+    return spread
+
+
+def get_tuner_params_quote():
+    print('MUST BE A NUMBER')
+    quote = float(input("quote: "))
+    return quote
+
+
+def get_tuner_params_base():
+    print('MUST BE A NUMBER')
+    base = float(input("base: "))
+    return base
+
+
 def get_merkato_variable(type):
     print("What {} should be used?".format(type))
     print('MUST BE A NUMBER')
@@ -107,7 +132,8 @@ def get_start_option():
     print("3 -> Add merkato (Requires existing exchanges)")
     print("4 -> Drop tables")
     print("5 -> Add asset to a Merkato")
-    print("6 -> Exit")
+    print("6 -> Run tuner")
+    print("7 -> Exit")
     return input("Selection: ")
 
 def create_price_data(orders, order):
@@ -156,6 +182,26 @@ def generate_complete_merkato_configs(merkato_objects):
         complete_config['base_volume'] = merkato['base_volume']
         merkato_complete_configs.append(complete_config)
     return merkato_complete_configs
+
+
+def generate_tuner_config(step, spread, start_base, start_quote):
+    config = {}
+    inner_config = {"limit_only": True}
+    
+    inner_config['exchange'] = 'test'
+    inner_config['public_api_key'] = 1
+    inner_config['private_api_key'] = 1
+
+    config['configuration'] = inner_config
+    config['base'] = 'BTC'
+    config['coin'] = 'XMR'
+    config['spread'] = spread
+    config['starting_price'] = 0.0157
+    config['ask_reserved_balance'] = start_quote/4
+    config['bid_reserved_balance'] = start_base/4
+    config['quote_volume'] = 0
+    config['base_volume'] = 0
+    return config
 
 
 def get_allocated_pair_balances(exchange, base, coin):

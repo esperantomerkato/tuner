@@ -7,7 +7,7 @@ from merkato.exchanges.tux_exchange.utils import validate_credentials
 from merkato.exchanges.binance_exchange.utils import validate_keys
 from merkato.constants import EXCHANGE
 from merkato.merkato import Merkato
-from merkato.utils import update_config_with_credentials, get_exchange, get_config_selection, encrypt, decrypt, ensure_bytes, generate_complete_merkato_configs, get_asset, get_reserve_balance, get_merkato_variable
+from merkato.utils import update_config_with_credentials, get_exchange, get_config_selection, encrypt, decrypt, ensure_bytes, generate_complete_merkato_configs, get_asset, get_reserve_balance, get_merkato_variable, get_tuner_params_step, get_tuner_params_spread, get_tuner_params_base, get_tuner_params_quote, generate_tuner_config
 import getpass
 import time
 
@@ -191,6 +191,9 @@ def process_start_option(option):
             return
 
         elif option == '6':
+            handle_start_tuner()
+
+        elif option == '7':
             return False
 
         else:
@@ -255,14 +258,24 @@ def start_merkatos(password=None):
         time.sleep(6)
 
 
-def start_tuner(start_base_amount, start_quote_amount, step, spread):
-    test_merkato = # Create a test merkato here using the passed in params and .0157 as a start price
-    config = generate_complete_merkato_configs(test_merkato)
+def handle_start_tuner():
+    step = get_tuner_params_step()
+    spread = get_tuner_params_spread()
+    base = get_tuner_params_base()
+    quote = get_tuner_params_quote()
+    print("Params gotten")
+    start_tuner(step, spread, base, quote)
+
+def start_tuner(step, spread, start_base, start_quote):
+    config = generate_tuner_config(step, spread, start_base, start_quote)
 
     tuner = Merkato(**config)
 
     while True:
         stuff = tuner.update()
+        if stuff == "stuffs":
+            # Get bprofit and qprofit and ending balances
+            print("------------")
         time.sleep(1)
 
 

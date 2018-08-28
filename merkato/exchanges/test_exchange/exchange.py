@@ -15,7 +15,7 @@ from merkato.exchanges.test_exchange.constants import test_asks, test_bids
 from merkato.exchanges.tux_exchange.utils import translate_ticker
 
 class TestExchange(ExchangeBase):
-    def __init__(self, config, coin, base, user_id=20, accounts=None, price = 1, password='password'):
+    def __init__(self, config, coin, base, user_id=20, accounts=None, price = 1, password='password', limit_only=True):
         self.coin = coin
         self.base = base
         self.name = "test"
@@ -216,6 +216,7 @@ class TestExchange(ExchangeBase):
         if self.index < len(self.history):
             self.generate_fake_data()
             return self.price
+        return "EOF"
 
 
     def get_lowest_ask(self):

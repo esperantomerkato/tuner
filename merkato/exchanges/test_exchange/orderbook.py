@@ -64,8 +64,15 @@ class Orderbook:
         return resolved_orders
 
     def generate_fake_orders(self, price):
-        is_bid_market_order = price < self.bids[0]["price"]
-        is_ask_market_order = price > self.asks[0]["price"]
+        try:
+            is_bid_market_order = price < self.bids[0]["price"]
+        except:
+            is_bid_market_order = False
+        try:
+            is_ask_market_order = price > self.asks[0]["price"]
+        except: 
+            is_ask_market_order = False
+
 
         if(is_ask_market_order):
             return self.resolve_market_order(ASK, price)

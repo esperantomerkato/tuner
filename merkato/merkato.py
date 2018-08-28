@@ -76,8 +76,7 @@ class Merkato(object):
             self.distribute_initial_orders(total_base=bid_reserved_balance, total_alt=ask_reserved_balance)
 
         else:
-            first_order = get_first_order(self.mutex_UUID)
-            current_history = self.exchange.get_my_trade_history(first_order)
+            current_history = self.exchange.get_my_trade_history()
             last_order = get_last_order(self.mutex_UUID)
             new_history = get_new_history(current_history, last_order)
             self.rebalance_orders(new_history)
@@ -452,6 +451,10 @@ class Merkato(object):
         
         now = str(datetime.datetime.now().isoformat()[:-7].replace("T", " "))
         last_trade_price = self.exchange.get_last_trade_price()
+        if last_trade_price == "EOF":
+            # Test merkato datastream ended
+            print("test datastream ended")
+            return "stuffs"
 
         first_order = get_first_order(self.mutex_UUID)
         last_order  = get_last_order(self.mutex_UUID)
