@@ -282,7 +282,6 @@ def start_tuner(step, spread, start_base, start_quote):
             b_profit = base_volume * (float(spread) - .001)
             print("------------ qprofit: {} bprofit: {}".format(q_profit, b_profit))
             done = True
-        time.sleep(.01)
 
 
 def create_new_merkato():

@@ -43,7 +43,7 @@ class TestExchange(ExchangeBase):
 
 
     def load_history(self):
-        with open("sixtyfour") as infile:
+        with open("price_data.txt") as infile:
             for line in infile:
                 obj = json.loads(line)
                 self.history.append(obj)
@@ -220,6 +220,7 @@ class TestExchange(ExchangeBase):
 
 
     def get_lowest_ask(self):
+        print('test get_lowest_ask get_lowest_ask get_lowest_ask get_lowest_ask')
         asks_exist = len(self.orderbook.asks) > 0
         if not asks_exist:
             return test_asks[0][PRICE]

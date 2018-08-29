@@ -49,25 +49,23 @@ class Orderbook:
                 return order
 
 
-    def resolve_market_order(self, type, price):
-        print('resolve market orderrrrr', 'biddies type', type(self.bids), 'biddies', self.bids)
-        print('askies', self.asks)
+    def resolve_market_order(self, market_type, price):
         resolved_orders = []
         highest_bid = self.bids[0]
         lowest_ask = self.asks[0]
 
-        if type == ASK:
+        if market_type == ASK:
             while float(lowest_ask["price"]) < price:
                 self.asks.pop(0)
                 self.add_resolved_order(lowest_ask, resolved_orders)
                 lowest_ask = self.asks[0]
         else:
+            times = 0
             while float(highest_bid["price"]) > price:
-                print('type', type(self.bids))
-                print('biddies 222', self.bids)
                 self.bids.pop(0)
                 self.add_resolved_order(highest_bid, resolved_orders)
                 highest_bid = self.bids[0]
+                times += 1
         return resolved_orders
 
     def generate_fake_orders(self, price):
