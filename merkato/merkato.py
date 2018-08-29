@@ -52,34 +52,27 @@ class Merkato(object):
 
         merkato_does_exist = merkato_exists(self.mutex_UUID)
 
-        if not merkato_does_exist:
-            log.info("Creating New Merkato")
+        log.info("Creating New Merkato")
 
-            self.cancelrange(ONE_SATOSHI, ONE_BITCOIN)
+        self.cancelrange(ONE_SATOSHI, ONE_BITCOIN)
 
-            total_pair_balances = self.exchange.get_balances()
+        total_pair_balances = self.exchange.get_balances()
 
-            log.info("total pair balances: {}".format(total_pair_balances))
+        log.info("total pair balances: {}".format(total_pair_balances))
 
-            allocated_pair_balances = get_allocated_pair_balances(configuration['exchange'], base, coin)
-            check_reserve_balances(total_pair_balances, allocated_pair_balances, coin_reserve=ask_reserved_balance, base_reserve=bid_reserved_balance)
+        allocated_pair_balances = get_allocated_pair_balances(configuration['exchange'], base, coin)
+        check_reserve_balances(total_pair_balances, allocated_pair_balances, coin_reserve=ask_reserved_balance, base_reserve=bid_reserved_balance)
 
-            insert_merkato(configuration[EXCHANGE], self.mutex_UUID, base, coin, spread, bid_reserved_balance, ask_reserved_balance, first_order, starting_price)
-            history = self.exchange.get_my_trade_history()
+        insert_merkato(configuration[EXCHANGE], self.mutex_UUID, base, coin, spread, bid_reserved_balance, ask_reserved_balance, first_order, starting_price)
+        history = self.exchange.get_my_trade_history()
 
-            log.debug('initial history: {}'.format(history))
+        log.debug('initial history: {}'.format(history))
 
-            if len(history) > 0:
-                log.debug('updating history first ID: {}'.format(history[0][ID]))
-                new_last_order = history[0][ID]
-                update_merkato(self.mutex_UUID, LAST_ORDER, new_last_order)
-            self.distribute_initial_orders(total_base=bid_reserved_balance, total_alt=ask_reserved_balance)
-
-        else:
-            current_history = self.exchange.get_my_trade_history()
-            last_order = get_last_order(self.mutex_UUID)
-            new_history = get_new_history(current_history, last_order)
-            self.rebalance_orders(new_history)
+        if len(history) > 0:
+            log.debug('updating history first ID: {}'.format(history[0][ID]))
+            new_last_order = history[0][ID]
+            update_merkato(self.mutex_UUID, LAST_ORDER, new_last_order)
+        self.distribute_initial_orders(total_base=bid_reserved_balance, total_alt=ask_reserved_balance)
 
         self.initialized = True  # to avoid being updated before orders placed
 

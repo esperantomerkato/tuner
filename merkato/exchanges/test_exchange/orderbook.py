@@ -7,6 +7,7 @@ class Orderbook:
     def __init__(self, bids=None, asks=None):
         self.bids = bids if bids else []
         self.asks = asks if asks else []
+        print('typess', type(self.bids), type(self.asks))
         self.resolved = []
         self.bid_ticker = 'XMR'  # TODO: this needs to com from TestExchange
         self.ask_ticker = 'BTC'  # TODO: this needs to com from TestExchange
@@ -16,7 +17,9 @@ class Orderbook:
         #is_market_order = price > self.asks[0].price
         order = self.create_order(userID, amount, price, BUY)
         self.bids.append(order)
+        print('add bid type', type(self.bids))
         self.bids = sorted(self.bids, key=lambda bid: bid["price"], reverse=True)
+        print('add bid type2', type)
         return order['orderId']
         #if is_market_order:
         #    return self.resolve_market_order()
@@ -47,6 +50,8 @@ class Orderbook:
 
 
     def resolve_market_order(self, type, price):
+        print('resolve market orderrrrr', 'biddies type', type(self.bids), 'biddies', self.bids)
+        print('askies', self.asks)
         resolved_orders = []
         highest_bid = self.bids[0]
         lowest_ask = self.asks[0]
@@ -58,6 +63,8 @@ class Orderbook:
                 lowest_ask = self.asks[0]
         else:
             while float(highest_bid["price"]) > price:
+                print('type', type(self.bids))
+                print('biddies 222', self.bids)
                 self.bids.pop(0)
                 self.add_resolved_order(highest_bid, resolved_orders)
                 highest_bid = self.bids[0]

@@ -270,13 +270,19 @@ def start_tuner(step, spread, start_base, start_quote):
     config = generate_tuner_config(step, spread, start_base, start_quote)
 
     tuner = Merkato(**config)
-
-    while True:
+    done = False
+    while done == False:
         stuff = tuner.update()
         if stuff == "stuffs":
             # Get bprofit and qprofit and ending balances
-            print("------------")
-        time.sleep(1)
+            quote_volume = float(tuner.quote_volume)
+            base_volume = float(tuner.base_volume)
+            spread = tuner.spread
+            q_profit = quote_volume * (float(spread) - .001)
+            b_profit = base_volume * (float(spread) - .001)
+            print("------------ qprofit: {} bprofit: {}".format(q_profit, b_profit))
+            done = True
+        time.sleep(.01)
 
 
 def create_new_merkato():
