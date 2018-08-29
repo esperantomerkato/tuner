@@ -278,8 +278,8 @@ def start_tuner(step, spread, start_base, start_quote):
             quote_volume = float(tuner.quote_volume)
             base_volume = float(tuner.base_volume)
             spread = tuner.spread
-            q_profit = quote_volume * (float(spread) - .001)
-            b_profit = base_volume * (float(spread) - .001)
+            q_profit = quote_volume * (float(spread) - .002)
+            b_profit = base_volume * (float(spread) - .002)
             print("------------ qprofit: {} bprofit: {}".format(q_profit, b_profit))
             done = True
 
